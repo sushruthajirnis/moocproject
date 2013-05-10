@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>MOOC - Spectrum</title>
+<link href="style.css" rel="stylesheet" />
+<style>.content {padding-top: 80px;}</style>
+</head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <h1><a href="/" class="brand">MOOC - Spectrum</a></h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        {{ state }}
+		<div>
+		<form action="/login/" method="post">{% csrf_token %}
+			{% if next %}
+			<input type="hidden" name="next" value="{{ next }}" />
+			{% endif %}
+			<br/>
+			Email Address:
+			<br/><input type="text" name="username" value="{{ username}}" /><br />
+			Password:
+			<br/><input type="password" name="password" value="" /><br />
+
+			<br/><input type="submit" value="Log In" />
+			<br/>
+		</form>
+		</div>
+		<div>
+			<br/><a href="/signup/">Sign Up</a> 
+		</div>
+      </div>
+    </div>
+
+  </body>
+</html>
