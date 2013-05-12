@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from mooc.models import Mooc
 
+#Request handling and directing them to the rest server (Each team will have separate style for the following)*
 # Create your views here.
 all_moocs = None
 selected_mooc = None

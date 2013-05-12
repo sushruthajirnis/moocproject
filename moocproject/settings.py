@@ -18,7 +18,7 @@ ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')c*&$fvd%o^uc(!mwb54xn6ekc1&kl^6b1xduz9tv-ve&rdn$q'
-
+    
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -48,7 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'moocproject.urls'
