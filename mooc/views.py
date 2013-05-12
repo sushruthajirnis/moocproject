@@ -14,6 +14,16 @@ all_moocs = None
 selected_mooc = None
 headers = {'content-type': 'application/json', 'charset': 'utf-8'}
 act_usr={}
+moocs=None
+current_mooc=None
+
+def setMooc():
+	moocs=Mooc.objects.all()
+	for mooc in moocs:
+		if mooc.default:
+			current_mooc=mooc
+	return
+
 def login_user(request):
 	global all_moocs
 	all_moocs= Mooc.objects.all()
@@ -36,16 +46,20 @@ def login_user(request):
 
 	return render_to_response('login.html',{'state':state, 'username': username},RequestContext(request, {}))
 
+
 def add_user(request):
 	
 	fname = request.POST.get('fname')
 	lname = request.POST.get('lname')
 	email = request.POST.get('email')
 	password = request.POST.get('password')
-    
+    	print fname
+    	print lname
+    	print email
+    	print password
 	if User.objects.filter(username=email).count():
 		state = "Account already exists!"
-		return render_to_response('signup.html', {'state':state}, RequestContext(request, {}))
+		return render_to_response('login.html', {'state':state}, RequestContext(request, {}))
 	
 	if(email is not None):
 		user = User.objects.create_user(email,email,password)
@@ -66,5 +80,8 @@ def add_user(request):
 #def profile_page()
 #def update_user()
 #def list_category()
+#def add_category()
+#working
+
 	
 	
