@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$','mooc.views.login_user'),
     url(r'^login/$', 'mooc.views.login_user'),
-    url(r'^register/$', 'mooc.views.add_user')
+    url(r'^register/$', 'mooc.views.add_user'),
+    url(r^'signout/$','mooc.views.user_logout'),
+    
 )
 
