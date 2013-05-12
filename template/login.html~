@@ -1,4 +1,6 @@
-    <!DOCTYPE html>
+
+<!DOCTYPE html>
+
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
@@ -13,9 +15,15 @@
         <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
         <meta name="author" content="Codrops" />
         <link rel="shortcut icon" href="../favicon.ico"> 
-        <link rel="stylesheet" type="text/css" href="../static /moocstatic/css/demo.css" />
+
+        <link rel="stylesheet" type="text/css" href="../static/moocstatic/css/demo.css" />
         <link rel="stylesheet" type="text/css" href="../static/moocstatic/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../static/moocstatic/css/animate-custom.css" />
+
+        <link rel="stylesheet" type="text/css" href="../static/moocstatic/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="../static/moocstatic/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../static/moocstatic/css/animate-custom.css" />
+
     </head>
     <body>
         <div class="container">
@@ -29,7 +37,9 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="/login/" method = "POST" autocomplete="on"> 
+
+                            <form  action="/mooc/login/" method = "POST" autocomplete="on"> 
+
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Email </label>
@@ -54,23 +64,30 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="/auth/" method = "POST" autocomplete="on"> 
+
+                            <form  action="/register/" method = "POST" autocomplete="on"> 
+
                                 <h1> Sign up </h1> 
                                 <p> 
-                                    <label for="usernamesignup" class="uname" data-icon="u">Username</label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="username" />
+                                    <label for="usernamesignup" class="uname" data-icon="u">Firstname</label>
+                                    <input id="fname" name="fname" required="required" type="text" placeholder="Firstname" />
                                 </p>
                                 <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">Lastname</label>
+                                    <input id="lname" name="lname" required="required" type="text" placeholder="Lastname" />
+                                </p>
+
+                                <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Email</label>
-                                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="email@mail.com"/> 
+                                    <input id="email" name="email" required="required" type="email" placeholder="email@mail.com"/> 
                                 </p>
                                 <p> 
                                     <label for="passwordsignup" class="youpasswd" data-icon="p">Password </label>
-                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="password"/>
+                                    <input id="password" name="password" required="required" type="password" placeholder="Password"/>
                                 </p>
                                 <p> 
                                     <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
-                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="password"/>
+                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="Password"/>
                                 </p>
                                 <p class="signin button"> 
 									<input type="submit" value="Sign up"/> 
