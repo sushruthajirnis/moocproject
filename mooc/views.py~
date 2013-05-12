@@ -52,7 +52,11 @@ def add_user(request):
 		user.save()
 		state = "Account created!"
 		
+<<<<<<< HEAD
+		response = requests.post(tempUrl, data=json.dumps(payload), headers=headers)
+=======
 		response = request.POST(tempUrl, data=json.dumps(payload), headers=headers)
+>>>>>>> d0d065d5c9514d42744e4863011859519a0d3fa3
 		
 		return render_to_response('signup.html', {'state':state}, RequestContext(request, {}))
 	

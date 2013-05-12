@@ -6,11 +6,14 @@ from django.core.context_processors import csrf
 from django.template import RequestContext  
 from django.contrib.auth.models import User
 from mooc.models import Mooc
+import requests
+import json
 
 # Create your views here.
 all_moocs = None
 selected_mooc = None
-
+headers = {'content-type': 'application/json', 'charset': 'utf-8'}
+act_usr={}
 def login_user(request):
 	global all_moocs
 	all_moocs= Mooc.objects.all()
@@ -31,7 +34,7 @@ def login_user(request):
 		else:
 			state = "Your username and/or password were incorrect."
 
-	return render_to_response('auth.html',{'state':state, 'username': username},RequestContext(request, {}))
+	return render_to_response('login.html',{'state':state, 'username': username},RequestContext(request, {}))
 
 def add_user(request):
 	
@@ -50,10 +53,18 @@ def add_user(request):
 		user.last_name = lname
 		user.save()
 		state = "Account created!"
-		
+		payload={"email":email,"quizzes":[],"own":[],"enrolled":[]}
+		tempUrl="http://localhost:8080/user"
 		response = requests.post(tempUrl, data=json.dumps(payload), headers=headers)
 		
-		return render_to_response('signup.html', {'state':state}, RequestContext(request, {}))
+		return render_to_response('login.html', {'state':state}, RequestContext(request, {}))
 	
 	state = "All fields are mandatory!!!"
 	return render_to_response('signup.html', {'state':state}, RequestContext(request, {}))
+#all methods have default
+#def get_html(): to render html data (get context)
+#def profile_page()
+#def update_user()
+#def list_category()
+	
+	
