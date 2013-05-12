@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login ,logout
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
 from django.template import RequestContext  
@@ -101,9 +101,10 @@ def get_render_json(request):
 
 def user_logout(request):
 	global selected_mooc, all_moocs, headers
-	if request.session.has_key(request.user.username):
+	try:
 		del request.session[request.user.username]
-		
+	except KeyError:
+		pass		
 	logout(request)
 	return login_page(request)	
 	
