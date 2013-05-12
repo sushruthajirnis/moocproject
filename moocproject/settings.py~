@@ -18,7 +18,11 @@ ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')c*&$fvd%o^uc(!mwb54xn6ekc1&kl^6b1xduz9tv-ve&rdn$q'
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> d0d065d5c9514d42744e4863011859519a0d3fa3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
