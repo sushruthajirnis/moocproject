@@ -103,6 +103,10 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 "django.core.context_processors.i18n",
 "django.core.context_processors.media",
 "django.core.context_processors.static",
+<<<<<<< HEAD
 "django.core.context_processors.request",
+=======
+'django.core.context_processors.request',
+>>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
 "django.contrib.messages.context_processors.messages")
 
