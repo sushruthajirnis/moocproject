@@ -27,6 +27,12 @@ def setMooc():
 			
 	return
 
+def home(request):
+	return render_to_response('home.html', RequestContext(request, {}))
+
+def home(request):
+	return render_to_response('home.html', RequestContext(request, {}))
+
 def loginUser(request):
 	global selected_mooc, all_moocs
 	setMooc()
@@ -47,9 +53,7 @@ def loginUser(request):
 				state = "You're successfully logged in!"
 				if (request.session.has_key(user.username)):
 					del request.session[user.username]
-					
-				request.session[user.username]={"url":selected_mooc.primaryUrl,"mooc":{"id":selected_mooc.id,"name":selected_mooc.groupName}}
-				
+									
 				return render_to_response('home.html',{},RequestContext(request))
 			else:
 				state = "Your account is not active, please contact the site admin."
@@ -137,14 +141,14 @@ def enrollCourse(request):
 	print "here in enroll course"
 	enrollCourseId = request.GET.get("courseId")
 	
-	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+	reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
 	user = requests.get(reqUrl)
 	user = user.json()
 	#print user
 	user['enrolled'].append(selected_mooc.groupName+":" + enrollCourseId)
 	
 	print "enrollCourseId", enrollCourseId
-	reqUrl=selected_mooc.secondaryUrl + "/user/update/"+request.user.username
+	reqUrl=selected_mooc.primaryUrl + "/user/update/"+request.user.username
 	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
 
 	if update_response.status_code ==200:
@@ -178,7 +182,7 @@ def addCourse(request):
 	
 	#print 'course' , course
 	
-	reqUrl=selected_mooc.secondaryUrl+"/course"
+	reqUrl=selected_mooc.primaryUrl+"/course"
     	#print reqUrl
     	#print headers
     	response=requests.post(reqUrl, json.dumps(course),headers=headers)
@@ -186,12 +190,12 @@ def addCourse(request):
    
     	courseId=data['id']
     	if response.status_code == 200:
-        	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+        	reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
         	user = requests.get(reqUrl)
         	user = user.json()
         	#print user
         	user['own'].append(selected_mooc.groupName+":" + courseId)
-        	reqUrl=selected_mooc.secondaryUrl + "/user/update/"+request.user.username
+        	reqUrl=selected_mooc.primaryUrl + "/user/update/"+request.user.username
         	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
        
         	if update_response.status_code ==200:
@@ -207,7 +211,7 @@ def listCourseToEnroll(request):
 	setMooc()
 	print "Here in enroll course"
 	
-	reqUrl=selected_mooc.secondaryUrl + "/course/list"
+	reqUrl=selected_mooc.primaryUrl + "/course/list"
 	course = requests.get(reqUrl)
 	course = course.json()
 	
@@ -233,32 +237,32 @@ def listCourseToDrop(request):
 	setMooc()
 	print "Here in enroll course"
 	courseDict = {}
-	reqUrl=selected_mooc.secondaryUrl + "/course/list"
+	reqUrl=selected_mooc.primaryUrl + "/course/list"
 	course = requests.get(reqUrl)
 	course = course.json()
 		
 	#print course['list']
 	course = course['list']
 				
-	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+	reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
 	user = requests.get(reqUrl)
 	user = user.json()
 	userEnrolledList = user['enrolled']
 	
 	userEnrolledcourseids = []
-	print "USER ENROLLED LIST-------"
+	#print "USER ENROLLED LIST-------"
 	for elem in userEnrolledList:
 		#print elem
 		userEnrolledcourseids.append(elem.split(":")[1])
-	print "-----------xxxxxx--------------"
-	for elem in userEnrolledcourseids:
-		print elem
+	#print "-----------xxxxxx--------------"
+	#for elem in userEnrolledcourseids:
+		#print elem
 	
-	print "-------------------------"
+	#print "-------------------------"
 	
-	print "COURSE LIST-------"
+	#print "COURSE LIST-------"
 	for elem in course:
-		print elem['id']
+		#print elem['id']
 		if elem['id'] in userEnrolledcourseids:
 			courseDict[elem['id']] = elem['title']
 		
@@ -269,10 +273,37 @@ def listCourseToDrop(request):
 	return render_to_response('listCourseToDrop.html', {'courseDict':courseDict} , context_instance=RequestContext(request))
 	#mylist = ['item 1', 'item 2', 'item 3']
 	#return render_to_response('listCourseToDrop.html', {'mylistx':courseDict}, context_instance=RequestContext(request))
+
+def listCourseToDelete(request):
+	
+	global selected_mooc, headers
+	setMooc()
+	print "Here in enroll course"
+	courseDict = {}
+	reqUrl=selected_mooc.primaryUrl + "/course/list"
+	course = requests.get(reqUrl)
+	course = course.json()
 		
-def removeCourse(request):
+	#print course['list']
+	course = course['list']
+				
+	for elem in course:
+		print elem['id']
+		courseDict[elem['id']] = elem['title']
+		
+	#for elem in courseDict:
+		#print elem, courseDict[elem]
+					
+	#courseDict = {'key1':'val1', 'key2':'val2'}				
+	return render_to_response('listCourseToDelete.html', {'courseDict':courseDict} , context_instance=RequestContext(request))
+	#mylist = ['item 1', 'item 2', 'item 3']
+	#return render_to_response('listCourseToDelete.html', {'mylistx':courseDict}, context_instance=RequestContext(request))
+
+def deleteCourse(request):
 	#takes place in the context of a logged in user
 	#1 Can only delete a course added by him th
+	print "Here in delete course"
+	
 	return
 
 def dropCourse(request):
@@ -287,14 +318,14 @@ def dropCourse(request):
 	print "here in drop course"
 	dropCourseId = request.GET.get("courseId")
 	
-	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+	reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
 	user = requests.get(reqUrl)
 	user = user.json()
 	#print user
 	user['enrolled'].remove(selected_mooc.groupName+":" + dropCourseId)
 	
 	print "dropCourseId", dropCourseId
-	reqUrl=selected_mooc.secondaryUrl + "/user/update/"+request.user.username
+	reqUrl=selected_mooc.primaryUrl + "/user/update/"+request.user.username
 	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
 
 	if update_response.status_code ==200:

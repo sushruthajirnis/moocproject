@@ -64,7 +64,6 @@
 								<li><a href="/listCourseToDrop">Drop Courses</a></li> 
 							</ul>
 		</li> 
-		
 		<li><a href="makeAnnounce.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					Announcement
@@ -97,9 +96,13 @@
 </section>
 <div>
 <ul id="enrollcourse">
+{% if courseDict %}
 {% for key,value in courseDict.items %}
-  <li> {{value}} <a href="{% url 'enroll' %}?courseId={{key}}"> Enroll In Course </a> </li> 
+  <li> {{value}} <a href="{% url 'deleteC' %}?courseId={{key}}"> Delete Course </a> </li> 
  {% endfor %}
+{% else %}
+  <h1> No course Listed/Enrolled</h1>
+{% endif %} 
 </ul>
 
 </div>
