@@ -38,7 +38,7 @@
                     <div id="wrapper">
                         <div id="login" class="animate form">
 
-                            <form  action="/mooc/login/" method = "POST" autocomplete="on"> 
+                            <form  action="" method = "POST" autocomplete="on"> {% csrf_token %}
 
                                 <h1>Log in</h1> 
                                 <p> 
@@ -65,7 +65,7 @@
 
                         <div id="register" class="animate form">
 
-                            <form  action="/register/" method = "POST" autocomplete="on"> 
+                            <form  action="/register/" method = "POST" autocomplete="on"> {% csrf_token %}
 
                                 <h1> Sign up </h1> 
                                 <p> 

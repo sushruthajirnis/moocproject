@@ -9,8 +9,13 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$','mooc.views.login_user'),
-    url(r'^login/$', 'mooc.views.login_user'),
-    url(r'^register/$', 'mooc.views.add_user')
+    url(r'^$','mooc.views.loginUser'),
+    url(r'^login/$', 'mooc.views.loginUser'),
+    url(r'^register/$', 'mooc.views.addUser'),
+    url(r'^signout/$','mooc.views.userLogout'),
+    url(r'^addCourse/$','mooc.views.addCourse'),
+    url(r'^createCourse/$','mooc.views.createCourse'),
+    url(r'^listCourseToEnroll/$','mooc.views.listCourseToEnroll',name="listC"),
+    url(r'^enrollCourse/$','mooc.views.enrollCourse',name="enroll"),
 )
 
