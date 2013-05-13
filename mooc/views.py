@@ -316,7 +316,7 @@ def listCourseToDelete(request):
 	
 	global selected_mooc, headers
 	setMooc()
-	print "Here in enroll course"
+	print "Here in delete course"
 	courseDict = {}
 	reqUrl=selected_mooc.primaryUrl + "/course/list"
 	course = requests.get(reqUrl)
@@ -325,9 +325,21 @@ def listCourseToDelete(request):
 	#print course['list']
 	course = course['list']
 				
+	reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
+	user = requests.get(reqUrl)
+	user = user.json()
+	userOwnList = user['own']
+					
+	userOwnCourseids = []
+	
+	for elem in userOwnList:
+		#print elem
+		userOwnCourseids.append(elem.split(":")[1])
+	
 	for elem in course:
 		print elem['id']
-		courseDict[elem['id']] = elem['title']
+		if elem['id'] in userOwnCourseids:
+			courseDict[elem['id']] = elem['title']
 		
 	#for elem in courseDict:
 		#print elem, courseDict[elem]
@@ -342,7 +354,30 @@ def deleteCourse(request):
 	#1 Can only delete a course added by him th
 	print "Here in delete course"
 	
-	return
+	deleteCourseId = request.GET.get("courseId")
+	reqUrl = selected_mooc.primaryUrl + "/course/" + deleteCourseId
+	
+	#print reqUrl
+	response = requests.delete(reqUrl)
+	if response.status_code == 200:
+		print "Course deleted successfully"
+        reqUrl=selected_mooc.primaryUrl + "/user/" +request.user.username
+    	user = requests.get(reqUrl)
+    	user = user.json()
+    	print user
+    	user['own'].remove(selected_mooc.groupName+":" + deleteCourseId)
+    	
+    	print "deleteCourseId", deleteCourseId
+    	reqUrl=selected_mooc.primaryUrl + "/user/update/"+request.user.username
+    	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
+
+    	if update_response.status_code ==200:
+        	print "Course dropped successfully"
+           	return render_to_response('successPage.html', {'message':"Course Successfully Deleted !!!"},context_instance=RequestContext(request))
+
+        return render_to_response('successPage.html', {'message':"Course could not be Deleted. Please try again !!!"}, context_instance=RequestContext(request))
+
+ 
 
 def dropCourse(request):
 	#takes place in the context of a logged in user
@@ -368,8 +403,9 @@ def dropCourse(request):
 
 	if update_response.status_code ==200:
     		print "Course dropped successfully"
-    		
-    	return render_to_response('successPage.html', {'message':"Course Successfully Dropped !!!"}, context_instance=RequestContext(request))
+    		return render_to_response('successPage.html', {'message':"Course Successfully Dropped !!!"}, context_instance=RequestContext(request))
+
+    	return render_to_response('successPage.html', {'message':"Course could not be Dropped. Please try again !!!"}, context_instance=RequestContext(request))
 
 
 
