@@ -63,7 +63,16 @@ def loginUser(request):
 	return render_to_response('login.html',{'state':state, 'username': username},RequestContext(request, {}))
 
 def createCourse(request):
-	return render_to_response('createCourse.html', RequestContext(request, {}))
+	reqUrl=selected_mooc.primaryUrl + '/category/list'
+	categories = requests.get(reqUrl)
+	categories = categories.json()
+	categories=categories['list']
+	catoutput={}
+	for category in categories:
+		catoutput[category['name']] =category['name']
+		print catoutput[category['name']]
+				
+	return render_to_response('createCourse.html',{'catoutput':catoutput}, RequestContext(request, {}))		
 			
 def addUser(request):
 	print "inside add user"

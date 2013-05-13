@@ -120,6 +120,20 @@
 				<label for="Field103">Description</label>
 		</span>
 	</li>
+	<li>
+		<select>
+		<optgroup id="Categoeries" label="Categories" name="Term">
+		<option value="addC">Please select Category</option>
+		{% if catoutput %}
+		{% for key,value in catoutput.items %}
+		<option value="{{key}}">{{value}}</option>
+		{% endfor %}
+		{% else %}
+		<option value="addC">No Category</option>
+		{% endif %}
+		</optgroup>
+		</select>                
+	</li>
 	<li id="foli105" class="notranslate      ">
 		<label class="dept" id="dept" for="Field105">
 			Department
