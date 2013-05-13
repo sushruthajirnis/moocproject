@@ -42,6 +42,7 @@ a.hiddenanchor{
 	position: relative;	
 }
 /**** Styling the form elements **/
+<<<<<<< HEAD
 .midcontainer{
 	left: 400px;
 	top: 180px;
@@ -53,6 +54,8 @@ a.hiddenanchor{
 	background-repeat: repeat;	
 	text-align: center;
 }
+=======
+>>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
 
 /**** general text styling ****/
 #wrapper a{
@@ -434,7 +437,11 @@ p.change_link{
 /** New Navigation Bar **/
 
 #nav {
+<<<<<<< HEAD
         float: left;
+=======
+        float: center;
+>>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
         font: bold 12px Arial, Helvetica, Sans-serif;
         border: 1px solid #121314;
         border-top: 1px solid #2b2e30;
