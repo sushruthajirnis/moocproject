@@ -25,7 +25,6 @@
 	<script type="text/javascript" src="../static/moocstatic/js/sliding_effect.js"></script>
 	<style>
 	#enrollcourse { margin-top: 10%}
-	#message { margin-top: 15%; font-size:40px;}
 	</style>
     </head>
     <body>
@@ -182,8 +181,17 @@
 </div>
 
 </section>
-<div style="display:block">
-<h1 id ="message"> {{message}}</h1>
+<div>
+<ul id="enrollcourse">
+{% if courseDict %}
+{% for key,value in courseDict.items %}
+  <li> {{value}} <a href="{% url 'drop' %}?courseId={{key}}"> Drop Course </a> </li> 
+ {% endfor %}
+{% else %}
+  <h1> No course Listed/Enrolled</h1>
+{% endif %} 
+</ul>
+
 </div>
         </div>
 

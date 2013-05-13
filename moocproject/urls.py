@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^addCourse/$','mooc.views.addCourse'),
     url(r'^createCourse/$','mooc.views.createCourse'),
     url(r'^listCourseToEnroll/$','mooc.views.listCourseToEnroll',name="listC"),
+    url(r'^listCourseToDrop/$','mooc.views.listCourseToDrop',name="dropC"),
     url(r'^enrollCourse/$','mooc.views.enrollCourse',name="enroll"),
+    url(r'^dropCourse/$','mooc.views.dropCourse',name="drop"),
 )
 

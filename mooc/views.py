@@ -144,7 +144,14 @@ def enrollCourse(request):
 	user['enrolled'].append(selected_mooc.groupName+":" + enrollCourseId)
 	
 	print "enrollCourseId", enrollCourseId
-	return
+	reqUrl=selected_mooc.secondaryUrl + "/user/update/"+request.user.username
+	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
+
+	if update_response.status_code ==200:
+    		print "Course enrolled successfully"
+    		
+    	return render_to_response('successPage.html', {'message':"Course Successfully Enrolled !!!"}, context_instance=RequestContext(request))
+
 
 
 def addCourse(request):
@@ -192,10 +199,11 @@ def addCourse(request):
 	
 	return render_to_response('successPage.html', {'message':"Course Successfully Added !!!"}, context_instance=RequestContext(request))
 			
-courseDict = {}
+
 def listCourseToEnroll(request):
 	
-	global selected_mooc, headers,courseDict
+	global selected_mooc, headers
+	courseDict = {}
 	setMooc()
 	print "Here in enroll course"
 	
@@ -217,14 +225,84 @@ def listCourseToEnroll(request):
 	return render_to_response('listCourseToEnroll.html', {'courseDict':courseDict} , context_instance=RequestContext(request))
 	#mylist = ['item 1', 'item 2', 'item 3']
 	#return render_to_response('listCourseToEnroll.html', {'mylistx':courseDict}, context_instance=RequestContext(request))
+
+
+def listCourseToDrop(request):
+		
+	global selected_mooc, headers
+	setMooc()
+	print "Here in enroll course"
+	courseDict = {}
+	reqUrl=selected_mooc.secondaryUrl + "/course/list"
+	course = requests.get(reqUrl)
+	course = course.json()
+		
+	#print course['list']
+	course = course['list']
 				
+	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+	user = requests.get(reqUrl)
+	user = user.json()
+	userEnrolledList = user['enrolled']
+	
+	userEnrolledcourseids = []
+	print "USER ENROLLED LIST-------"
+	for elem in userEnrolledList:
+		#print elem
+		userEnrolledcourseids.append(elem.split(":")[1])
+	print "-----------xxxxxx--------------"
+	for elem in userEnrolledcourseids:
+		print elem
+	
+	print "-------------------------"
+	
+	print "COURSE LIST-------"
+	for elem in course:
+		print elem['id']
+		if elem['id'] in userEnrolledcourseids:
+			courseDict[elem['id']] = elem['title']
+		
+	#for elem in courseDict:
+		#print elem, courseDict[elem]
+					
+	#courseDict = {'key1':'val1', 'key2':'val2'}				
+	return render_to_response('listCourseToDrop.html', {'courseDict':courseDict} , context_instance=RequestContext(request))
+	#mylist = ['item 1', 'item 2', 'item 3']
+	#return render_to_response('listCourseToDrop.html', {'mylistx':courseDict}, context_instance=RequestContext(request))
+		
 def removeCourse(request):
 	#takes place in the context of a logged in user
 	#1 Can only delete a course added by him th
 	return
 
 def dropCourse(request):
-	return
+	#takes place in the context of a logged in user
+	# for enrolling we need to confirm 
+	#1. He is registered User(username in sqlite) -- not required 
+	#2 	He can register in the course added by him
+	#3 	He must not be already enrolled
+	#4  Enrolling means his data in mongo is updated
+	global selected_mooc, headers
+	
+	print "here in drop course"
+	dropCourseId = request.GET.get("courseId")
+	
+	reqUrl=selected_mooc.secondaryUrl + "/user/" +request.user.username
+	user = requests.get(reqUrl)
+	user = user.json()
+	#print user
+	user['enrolled'].remove(selected_mooc.groupName+":" + dropCourseId)
+	
+	print "dropCourseId", dropCourseId
+	reqUrl=selected_mooc.secondaryUrl + "/user/update/"+request.user.username
+	update_response=requests.put(reqUrl, json.dumps(user),headers=headers)
+
+	if update_response.status_code ==200:
+    		print "Course dropped successfully"
+    		
+    	return render_to_response('successPage.html', {'message':"Course Successfully Dropped !!!"}, context_instance=RequestContext(request))
+
+
 
 	
 	
