@@ -76,10 +76,18 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 
-		<li><a href="contactUs.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Contact Us
+		<li><a href="/addCategory">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Category
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li> 
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<ul>
+						<li> <form id = "form221" method = "POST" action = "course.html">
+									<a href="/addCategory" onClick="document.getElementById('form221').submit();">Add Category</a>
+									<input type="hidden" name="course_text" value="Add Category"></form>
+						</li>
+					</ul>
+		
+		</li> 
 
 		<li><form id = "form20" method = "POST" action = "/signout/">
 			<a href="/signout/" onClick="document.getElementById('form20').submit();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -127,6 +135,20 @@
 			<input id="desc" name="desc" type="text" class="field text ln" value="" size="14" tabindex="2" />
 				<label for="Field103">Description</label>
 		</span>
+	</li>
+	<li>
+		<select>
+		<optgroup id="Categoeries" label="Categories" name="Term">
+		<option value="addC">Please select Category</option>
+		{% if catoutput %}
+		{% for key,value in catoutput.items %}
+		<option value="{{key}}">{{value}}</option>
+		{% endfor %}
+		{% else %}
+		<option value="addC">No Category</option>
+		{% endif %}
+		</optgroup>
+		</select>                
 	</li>
 	<li id="foli105" class="notranslate      ">
 		<label class="dept" id="dept" for="Field105">

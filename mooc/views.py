@@ -75,8 +75,13 @@ def createCourse(request):
 	for category in categories:
 		catoutput[category['name']] =category['name']
 		print catoutput[category['name']]
+<<<<<<< HEAD
 		
 	return render_to_response('createCourse.html',{'catoutput':catoutput}, RequestContext(request, {}))
+=======
+				
+	return render_to_response('createCourse.html',{'catoutput':catoutput}, RequestContext(request, {}))		
+>>>>>>> 614d84dfcb395972dbf3192844fefea89ee0842c
 			
 def addUser(request):
 	print "inside add user"
@@ -392,5 +397,21 @@ def dropCourse(request):
     	return render_to_response('successPage.html', {'message':"Course could not be Dropped. Please try again !!!"}, context_instance=RequestContext(request))
 
 
+<<<<<<< HEAD
 
 	
+=======
+def getCategories(request):
+	reqUrl=selected_mooc.primaryUrl + '/category/list'
+	category = requests.get(reqUrl)
+	category = category.json()
+	
+	return category
+	
+def addCategory(request):
+	return render_to_response('addCategory.html', RequestContext(request, {}))
+			
+def addCategoryInDb(request):
+	print "In addCategoryInDb"
+	return
+>>>>>>> 614d84dfcb395972dbf3192844fefea89ee0842c

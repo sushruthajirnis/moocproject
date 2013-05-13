@@ -23,6 +23,12 @@ urlpatterns = patterns('',
     url(r'^dropCourse/$','mooc.views.dropCourse',name="drop"),
     url(r'^listCourseToDelete/$','mooc.views.listCourseToDelete',name="delete"),
     url(r'^deleteCourse/$','mooc.views.deleteCourse',name="deleteC"),
+<<<<<<< HEAD
 
+=======
+    url(r'^addCategory/$','mooc.views.addCategory',name="addC"),
+    url(r'^addCategoryInDb/$','mooc.views.addCategoryInDb',name="addCatDB"),
+ 
+>>>>>>> 614d84dfcb395972dbf3192844fefea89ee0842c
 )
 

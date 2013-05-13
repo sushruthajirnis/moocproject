@@ -23,9 +23,6 @@
 	<!--link rel="stylesheet" type="text/css" href="styles.css" /-->
 	<script type="text/javascript" src="../static/moocstatic/js/jquery.js"></script>
 	<script type="text/javascript" src="../static/moocstatic/js/sliding_effect.js"></script>
-	<style>
-	#enrollcourse { margin-top: 10%}
-	</style>
     </head>
     <body>
         <div class="container">
@@ -56,16 +53,17 @@
 								<li> <form id = "form23" method = "POST" action = "course.html">
 									<a href="/listCourseToDelete" onClick="document.getElementById('form23').submit();">Delete Course</a>
 									<input type="hidden" name="course_text" value="Delete Course"></form>
-								</li> 
+								</li>
 								
 								<li> <form id = "form22" method = "POST" action = "course.html">
 									<a href="/listCourseToEnroll" onClick="document.getElementById('form22').submit();">Enroll Courses</a>
 									<input type="hidden" name="course_text" value="Enroll Course"></form>
 								</li>
 								<li><a href="/listCourseToDrop">Drop Courses</a></li> 
-								
+ 		
 							</ul>
 		</li> 
+
 		<li><a href="makeAnnounce.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					Announcement
@@ -89,7 +87,7 @@
 						</li>
 					</ul>
 		
-		</li>  
+		</li> 
 
 		<li><form id = "form20" method = "POST" action = "/signout/">
 			<a href="/signout/" onClick="document.getElementById('form20').submit();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -104,17 +102,35 @@
 </div>
 
 </section>
-<div>
-<ul id="enrollcourse">
-{% if courseDict %}
-{% for key,value in courseDict.items %}
-  <li> {{value}} <a href="{% url 'drop' %}?courseId={{key}}"> Drop Course </a> </li> 
- {% endfor %}
-{% else %}
-  <h1> No course Listed/Enrolled</h1>
-{% endif %} 
-</ul>
 
+<div id="container" class="ltr">
+<form id = "form30" method = "POST" action = "/addCategoryInDb/">{%csrf_token%}
+<ul>
+
+	<li id="foli102" class="notranslate">
+		<label class="desc" id="title102" for="Field102">
+			Category
+		</label>
+		<span>
+			<input id="title" name="catname" type="text" class="field text fn" value="" size="8" tabindex="1" />
+				<label for="title">Name</label>
+		</span>
+		<span>
+			<input id="desc" name="catdesc" type="text" class="field text ln" value="" size="14" tabindex="2" />
+				<label for="Field103">Description</label>
+		</span>
+	</li>
+
+ <li class="buttons ">
+<div>
+
+    <input id="saveForm" name="saveForm" class="btTxt submit" 
+    type="submit" value="Submit"
+ /></div>
+</li>
+
+</ul>
+</form>
 </div>
         </div>
 
