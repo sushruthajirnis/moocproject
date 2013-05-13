@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'moocproject.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-<<<<<<< HEAD
+
     url(r'^$','mooc.views.loginUser'),
     url(r'^login/$', 'mooc.views.loginUser'),
     url(r'^register/$', 'mooc.views.addUser'),
@@ -23,12 +23,6 @@ urlpatterns = patterns('',
     url(r'^dropCourse/$','mooc.views.dropCourse',name="drop"),
     url(r'^listCourseToDelete/$','mooc.views.listCourseToDelete',name="delete"),
     url(r'^deleteCourse/$','mooc.views.deleteCourse',name="deleteC"),
-=======
-    url(r'^$','mooc.views.login_user'),
-    url(r'^login/$', 'mooc.views.login_user'),
-    url(r'^register/$', 'mooc.views.add_user'),
-    url(r'^signout/$','mooc.views.user_logout')
-    
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 )
 

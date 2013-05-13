@@ -16,10 +16,6 @@ all_moocs = None
 selected_mooc = None
 headers = {'content-type': 'application/json', 'charset': 'utf-8'}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
 
 def setMooc():
 	global all_moocs,selected_mooc
@@ -31,17 +27,14 @@ def setMooc():
 			
 	return
 
-<<<<<<< HEAD
-def home(request):
-	return render_to_response('home.html', RequestContext(request, {}))
 
 def home(request):
 	return render_to_response('home.html', RequestContext(request, {}))
+
+
 
 def loginUser(request):
-=======
-def login_user(request):
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 	global selected_mooc, all_moocs
 	setMooc()
 	str(selected_mooc)
@@ -61,12 +54,9 @@ def login_user(request):
 				state = "You're successfully logged in!"
 				if (request.session.has_key(user.username)):
 					del request.session[user.username]
-<<<<<<< HEAD
+
 									
-=======
-				
-				request.session[user.username]={"url":selected_mooc.primaryUrl,"mooc":{"id":selected_mooc.id,"name":selected_mooc.groupName}}
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 				return render_to_response('home.html',{},RequestContext(request))
 			else:
 				state = "Your account is not active, please contact the site admin."
@@ -75,27 +65,31 @@ def login_user(request):
   	
 	return render_to_response('login.html',{'state':state, 'username': username},RequestContext(request, {}))
 
-<<<<<<< HEAD
+
 def createCourse(request):
-	return render_to_response('createCourse.html', RequestContext(request, {}))
+	reqUrl=selected_mooc.primaryUrl + '/category/list'
+	categories = requests.get(reqUrl)
+	categories = categories.json()
+	categories=categories['list']
+	catoutput={}
+	for category in categories:
+		catoutput[category['name']] =category['name']
+		print catoutput[category['name']]
+		
+	return render_to_response('createCourse.html',{'catoutput':catoutput}, RequestContext(request, {}))
 			
 def addUser(request):
 	print "inside add user"
-=======
 
-def add_user(request):
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
 	global selected_mooc, all_moocs, headers
 	setMooc()
 	fname = request.POST.get('fname')
 	lname = request.POST.get('lname')
 	email = request.POST.get('email')
 	password = request.POST.get('password')
-<<<<<<< HEAD
+
     
-=======
-    	
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 	if User.objects.filter(username=email).count():
 		state = "Account already exists!"
 		print "here"
@@ -110,16 +104,13 @@ def add_user(request):
 		print "saved in sqlite"
 		state = "Account created!"
 		payload={"email":email,"quizzes":[],"own":[],"enrolled":[]}
-<<<<<<< HEAD
+
 		
 		reqUrl = "http://localhost:8080" +"/user"
 		#req=urllib2.Request(reqUrl,payload,headers)
 		#response=urllib2.urlopen(req).read()
 		response = requests.post(reqUrl, data=json.dumps(payload), headers=headers)
-=======
-		tempUrl = "http://localhost:8080" +"/user"
-		response = requests.post(tempUrl, data=json.dumps(payload), headers=headers)
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 		
 		return render_to_response('login.html', {'state':state}, RequestContext(request, {}))
 	
@@ -134,14 +125,9 @@ def add_user(request):
 #def list_category()
 #def add_category()
 #working
-def login_page(request):
-	setMooc()
-	return render_to_response("login.html")
 
-def get_render_json(request):
-	return
 
-<<<<<<< HEAD
+
  
 
 def loginPage(request):
@@ -155,16 +141,14 @@ def getRenderJson(request):
 	return jsondata
 
 def userLogout(request):
-=======
-def user_logout(request):
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
+
 	global selected_mooc, all_moocs, headers
 	try:
 		del request.session[request.user.username]
 	except KeyError:
 		pass		
 	logout(request)
-<<<<<<< HEAD
+
 	return loginPage(request)
 
 def enrollCourse(request):
@@ -409,9 +393,4 @@ def dropCourse(request):
 
 
 
-=======
-	return login_page(request)	
->>>>>>> c55e203933d2dace129e1700b9f45fc290de1e05
-	
-	
 	
