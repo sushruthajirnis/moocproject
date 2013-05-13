@@ -117,7 +117,6 @@ def addUser(request):
 #def add_category()
 #working
 
- 
 
 def loginPage(request):
 	setMooc()
@@ -378,17 +377,32 @@ def dropCourse(request):
 
     	return render_to_response('successPage.html', {'message':"Course could not be Dropped. Please try again !!!"}, context_instance=RequestContext(request))
 
-
-def getCategories(request):
-	reqUrl=selected_mooc.primaryUrl + '/category/list'
-	category = requests.get(reqUrl)
-	category = category.json()
-	
-	return category
 	
 def addCategory(request):
 	return render_to_response('addCategory.html', RequestContext(request, {}))
 			
 def addCategoryInDb(request):
 	print "In addCategoryInDb"
-	return
+	
+	global selected_mooc, headers
+	
+	category={}
+	category["name"] = request.POST.get("catname")
+	category["description"] = request.POST.get("catdesc")
+	category["status"] = 1	
+	category["createDate"] = "05-13-2013"
+	
+	reqUrl=selected_mooc.primaryUrl+"/category"
+	response=requests.post(reqUrl, json.dumps(category),headers=headers)
+	
+	if response.status_code ==201:
+		return render_to_response('successPage.html', {'message':"Category successfully Added !!!"}, context_instance=RequestContext(request))
+
+	return render_to_response('successPage.html', {'message':"Category could not be Added. Please try again !!!"}, context_instance=RequestContext(request))
+
+			
+			
+			
+			
+			
+			
