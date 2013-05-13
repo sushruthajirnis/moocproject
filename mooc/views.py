@@ -370,7 +370,16 @@ def dropCourse(request):
     	return render_to_response('successPage.html', {'message':"Course could not be Dropped. Please try again !!!"}, context_instance=RequestContext(request))
 
 
-
+def getCategories(request):
+	reqUrl=selected_mooc.primaryUrl + '/category/list'
+	category = requests.get(reqUrl)
+	category = category.json()
 	
+	return category
 	
-	
+def addCategory(request):
+	return render_to_response('addCategory.html', RequestContext(request, {}))
+			
+def addCategoryInDb(request):
+	print "In addCategoryInDb"
+	return
