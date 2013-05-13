@@ -105,6 +105,13 @@
 			<input id="title" name="title" type="text" class="field text fn" value="" size="8" tabindex="1" />
 				<label for="title">Title</label>
 		</span>
+		{% if request.session.username.categories %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">categories<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                {% for mooc in latest_mooc_list %}
+                                            <li><a href="/mooc/home/?id={{ mooc.id }}">{{ mooc.group }}</a></li>
+             {% endfor %}
+                                    </ul>
 		<span>
 			<input id="desc" name="desc" type="text" class="field text ln" value="" size="14" tabindex="2" />
 				<label for="Field103">Description</label>
